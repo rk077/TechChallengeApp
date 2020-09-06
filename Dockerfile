@@ -30,8 +30,11 @@ WORKDIR /TechChallengeApp
 COPY assets ./assets
 COPY conf.toml ./conf.toml
 
+COPY entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+
 COPY --from=build /tmp/swagger/dist ./assets/swagger
 COPY --from=build /swagger.json ./assets/swagger/swagger.json
 COPY --from=build /TechChallengeApp TechChallengeApp
 
-ENTRYPOINT [ "./TechChallengeApp" ]
+ENTRYPOINT [ "./entrypoint.sh" ] 
